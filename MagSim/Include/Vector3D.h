@@ -31,6 +31,11 @@ struct Vector3D {
     // This vector - other vector
     Vector3D operator-(const Vector3D& o) const { return Vector3D(x - o.x, y - o.y, z - o.z); };
 
+    // This vector * scalar value
+    Vector3D operator*(const double& s) const {
+        return Vector3D(x*s, y*s, z*s);
+    };
+
     // This vector / scalar value
     Vector3D operator/(const double& s) const {
         if (s == 0) {
