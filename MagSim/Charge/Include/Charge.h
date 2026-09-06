@@ -3,7 +3,7 @@
 
 template <class ItemType>
 class Charge {
-    private :
+    public :
         int x; // x coordinate (m)
         int y; // y coordinate (m)
         int Q; // Measurment of charge in coulombs (C)
