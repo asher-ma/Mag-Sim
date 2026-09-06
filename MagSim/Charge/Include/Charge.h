@@ -4,8 +4,8 @@
 template <class ItemType>
 class Particle {
     private :
-        int x; // x coordinate
-        int y; // y coordinate
+        int x; // x coordinate (m)
+        int y; // y coordinate (m)
         int Q; // Measurment of charge in coulombs (C)
 };
 
