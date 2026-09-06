@@ -10,4 +10,6 @@ namespace Geometry {
     Vector3D dir(Vector3D r1, Vector3D r2); // Gets direction from v1 to v2
 };
 
+#include "../src/Geometry.cpp"
+
 #endif
