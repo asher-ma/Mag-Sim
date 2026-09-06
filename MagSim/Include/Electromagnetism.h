@@ -10,7 +10,8 @@ namespace Electromagnetism {
 
     Vector3D Force(const Charge& q1, const Charge& q2);
     Vector3D Force(const Charge& q1, const std::vector<Charge> charges);
-    double E; // Measurment of field (V/m or N/C)
+    Vector3D FieldAt(const Vector3D r, const Charge& q);
+    Vector3D FieldAt(const Vector3D r, const std::vector<Charge> charges); // Measurment of field (V/m or N/C)
 };
 
 #include "..\src\Electromagnetism.cpp"
