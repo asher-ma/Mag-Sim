@@ -2,7 +2,7 @@
 #include <string>
 
 #include "Geometry.h"
-#include "Phys.h"
+#include "Electromagnetism.h"
 
 void displayVectorProperties(Vector3D r) {
     std::cout << "r: " << r << "\nmag: " << r.mag() << "\nunit: " << r.unit() << std::endl;
