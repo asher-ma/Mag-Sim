@@ -1,23 +1,6 @@
+#include "Electromagnetism.h"
 #include "Geometry.h"
-#include <vector>
 
-// Charge header
-class Charge {
-    public :
-        Vector3D r; // Position vector
-        double Q; // Measurment of charge in coulombs (C)
-};
-
-// Field header
-namespace Electromagnetism {
-    const double k = 1; // Coulomb's constant placeholder
-
-    Vector3D Force(const Charge& q1, const Charge& q2);
-    Vector3D Force(const Charge& q1, const std::vector<Charge> charges);
-    double E; // Measurment of field (V/m or N/C)
-};
-
-// Field implementation
 Vector3D Electromagnetism::Force(const Charge& q1, const Charge& q2){
     Vector3D ur12 = Geometry::dir(q2.r, q1.r); // Unit vector for direction from q2 to q1
     double r = Geometry::dist(q1.r, q2.r); // Distance between charges
