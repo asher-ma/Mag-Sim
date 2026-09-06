@@ -4,9 +4,8 @@
 template <class ItemType>
 class Charge {
     public :
-        int x; // x coordinate (m)
-        int y; // y coordinate (m)
-        int Q; // Measurment of charge in coulombs (C)
+        double x, y; // coordinates (m)
+        double Q; // Measurment of charge in coulombs (C)
 };
 
 #endif
