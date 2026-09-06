@@ -1,8 +1,8 @@
-#ifndef _PARTICLE_
-#define _PARTICLE_
+#ifndef _CHARGE_
+#define _CHARGE_
 
 template <class ItemType>
-class Particle {
+class Charge {
     private :
         int x; // x coordinate (m)
         int y; // y coordinate (m)
