@@ -1,8 +1,11 @@
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "Geometry.h"
 #include "Electromagnetism.h"
+#include "raylib.h"
 
 void displayVectorProperties(Vector3D r) {
     std::cout << "r: " << r << "\nmag: " << r.mag() << "\nunit: " << r.unit() << std::endl;
@@ -84,9 +87,42 @@ void ElectromagneticTests() {
     }
 }
 
+
+void rayInit() {
+    // Tell the window to use vsync and work on high DPI displays
+	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
+    
+    // Initialize window and OpenGL context
+    InitWindow(1280, 720, "Hello Rayworld!");
+
+    // game loop
+	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
+	{
+		// drawing
+		BeginDrawing();
+
+		// Setup the back buffer for drawing (clear color and depth buffers)
+		ClearBackground(BLACK);
+
+		// draw some text using the default font
+		DrawText("Hello Raylib!", 200,200,20,WHITE);
+		
+		// end the frame and get ready for the next one  (display frame, poll input, etc...)
+		EndDrawing();
+	}
+
+    // destroy the window and cleanup the OpenGL context
+    CloseWindow();
+}
+
 int main() {
     //VectorGeometryTests();    
-    ElectromagneticTests();
+    //ElectromagneticTests();
+
+    
+    std::cout << "Hello World!";
+    rayInit();
+    std::cout << "Goodbye World!";
 
     return 0;
 }
