@@ -7,8 +7,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-I", "${workspaceFolder}/MagSim/Include", // Allow compiler to see Include folder
+                "-std=c++17",
+                "-I", "${workspaceFolder}/MagSim/Include",
                 "${file}",
+                "-L", "C:/msys64/ucrt64/lib",
+                "-lraylib",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
