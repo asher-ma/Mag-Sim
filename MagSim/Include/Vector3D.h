@@ -9,8 +9,8 @@ struct Vector3D {
 
     // Constructors
     Vector3D() : x(0), y(0), z(0) {} // Default creates origin vector
-    Vector3D(int x_, int y_) : x(x_), y(y_), z(0) {} // 2D constructor
-    Vector3D(int x_, int y_, int z_) : x(x_), y(y_), z(z_) {} // 3D constructor    
+    Vector3D(double x_, double y_) : x(x_), y(y_), z(0) {} // 2D constructor
+    Vector3D(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {} // 3D constructor    
 
 
     // Vector properties
