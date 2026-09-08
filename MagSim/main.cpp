@@ -93,6 +93,18 @@ void centerCam(int width, int height) {
     Camera camera = {position, target, up, fovy, projection};
 }
 
+// Draw grid
+void drawGrid(int width, int height) {
+    // Draw vertical lines
+    for (int x = 0; x < width; x+=50) {
+        DrawLine(x, 0, x, height, WHITE);
+    }
+    // Draw horizontal lines
+    for (int y = 0; y < height; y+=50) {
+        DrawLine(0, y, width, y, WHITE);
+    }
+}
+
 void rayInit() {
     // Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
@@ -112,6 +124,8 @@ void rayInit() {
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(BLACK);
+
+        drawGrid(width, height);
 
         // Display fps
         std::string fpsText = std::to_string(GetFPS());
