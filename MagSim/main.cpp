@@ -85,12 +85,32 @@ void ElectromagneticTests() {
 
 // Center camera on origin
 Camera centerCam() {
-    Vector3 position = {0,500,0};
+    Vector3 position = {0,0,500};
     Vector3 target = {0,0,0};
-    Vector3 up = {0,0,-1};
+    Vector3 up = {0,1,0};
     float fovy = 1000;
     int projection = CAMERA_ORTHOGRAPHIC;
     return Camera{position, target, up, fovy, projection};
+}
+
+// Draw grid
+void drawGrid(int width, int height) {
+    int space = 100;
+
+    // Draw vertical lines
+    for (int x = 0; x < width; x += space) {
+        DrawLine(x, -height, x, height, LIGHTGRAY);
+    }
+    for (int x = 0; x < -width; x -= space) {
+        DrawLine(x, -height, x, height, LIGHTGRAY);
+    }
+    // Draw horizontal lines
+    for (int y = 0; y < height; y += space) {
+        DrawLine(-width, y, width, y, LIGHTGRAY);
+    }
+    for (int y = 0; y < -height; y -= space) {
+        DrawLine(-width, y, width, y, LIGHTGRAY);
+    }
 }
 
 void rayInit() {
@@ -99,7 +119,6 @@ void rayInit() {
     
     int width = 1000;
     int height = 1000;
-    int graphSpacing = 50;
 
     // Initialize window and OpenGL context
     InitWindow(width, height, "MagSim");
@@ -112,19 +131,17 @@ void rayInit() {
         // Update camera
         UpdateCamera(&camera, CAMERA_CUSTOM);
 
-
 		// drawing
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(BLACK);
 
-        BeginMode3D(camera);
-        DrawGrid(width/graphSpacing - 1, graphSpacing);
-        EndMode3D();
+        // Draw grid
+        drawGrid(width, height);
 
-        // // Draw grid for graph
-        // drawGrid(width, height);
+        BeginMode3D(camera);
+        EndMode3D();
 
         // Display fps
         std::string fpsText = std::to_string(GetFPS());
@@ -134,7 +151,11 @@ void rayInit() {
         std::string timeText = std::to_string(static_cast<int>(GetTime()));
         DrawText(timeText.c_str(), 10,25,10,WHITE);
 
-        std::string mouseText = "Mouse at: (" + std::to_string(GetMouseX()) + "," + std::to_string(GetMouseX()) + ")";
+        // Get ray from mouse pos on screen to world
+        // Ray {Vector3 position, Vector3 direction}
+        Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
+        std::string mouseText = "Mouse at: (" + std::to_string(static_cast<int>(ray.position.x)) + "," +
+                std::to_string(static_cast<int>(ray.position.y)) + ")";
         DrawText(mouseText.c_str(), 10,40,10,WHITE);
 		
 		// end the frame and get ready for the next one  (display frame, poll input, etc...)
