@@ -81,19 +81,28 @@ void ElectromagneticTests() {
                 << "Mag: " << F.mag() << std::endl
                 << "Dir: " << F.unit() << std::endl;
     }
-
-    {
-        
-    }
 }
 
+// Center camera on origin
+void centerCam(int width, int height) {
+    Vector3 position = {0,0,500};
+    Vector3 target = {0,0,0};
+    Vector3 up = {0,1,0};
+    float fovy = 1;
+    int projection = CAMERA_ORTHOGRAPHIC;
+    Camera camera = {position, target, up, fovy, projection};
+}
 
 void rayInit() {
     // Tell the window to use vsync and work on high DPI displays
 	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     
+    int width = 1000;
+    int height = 1000;
     // Initialize window and OpenGL context
-    InitWindow(1280, 720, "Hello Rayworld!");
+    InitWindow(width, height, "MagSim");
+
+    //centerCam(width, height);
 
     // game loop
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
@@ -104,8 +113,16 @@ void rayInit() {
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(BLACK);
 
-		// draw some text using the default font
-		DrawText("Hello Raylib!", 200,200,20,WHITE);
+        // Display fps
+        std::string fpsText = std::to_string(GetFPS());
+        DrawText(fpsText.c_str(), 10,10,10,WHITE);
+
+        // Display elapsed time
+        std::string timeText = std::to_string(static_cast<int>(GetTime()));
+        DrawText(timeText.c_str(), 10,25,10,WHITE);
+
+        std::string mouseText = "Mouse at: (" + std::to_string(GetMouseX()) + "," + std::to_string(GetMouseX()) + ")";
+        DrawText(mouseText.c_str(), 10,40,10,WHITE);
 		
 		// end the frame and get ready for the next one  (display frame, poll input, etc...)
 		EndDrawing();
@@ -116,13 +133,11 @@ void rayInit() {
 }
 
 int main() {
-    //VectorGeometryTests();    
-    //ElectromagneticTests();
+    // VectorGeometryTests();    
+    // ElectromagneticTests();
 
     
-    std::cout << "Hello World!";
     rayInit();
-    std::cout << "Goodbye World!";
 
     return 0;
 }
