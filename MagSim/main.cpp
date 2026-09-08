@@ -84,25 +84,13 @@ void ElectromagneticTests() {
 }
 
 // Center camera on origin
-void centerCam(int width, int height) {
-    Vector3 position = {0,0,500};
+Camera centerCam() {
+    Vector3 position = {0,500,0};
     Vector3 target = {0,0,0};
-    Vector3 up = {0,1,0};
-    float fovy = 1;
+    Vector3 up = {0,0,-1};
+    float fovy = 1000;
     int projection = CAMERA_ORTHOGRAPHIC;
-    Camera camera = {position, target, up, fovy, projection};
-}
-
-// Draw grid
-void drawGrid(int width, int height) {
-    // Draw vertical lines
-    for (int x = 0; x < width; x+=50) {
-        DrawLine(x, 0, x, height, WHITE);
-    }
-    // Draw horizontal lines
-    for (int y = 0; y < height; y+=50) {
-        DrawLine(0, y, width, y, WHITE);
-    }
+    return Camera{position, target, up, fovy, projection};
 }
 
 void rayInit() {
@@ -111,21 +99,32 @@ void rayInit() {
     
     int width = 1000;
     int height = 1000;
+    int graphSpacing = 50;
+
     // Initialize window and OpenGL context
     InitWindow(width, height, "MagSim");
 
-    //centerCam(width, height);
+    Camera camera = centerCam();
 
     // game loop
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
 	{
+        // Update camera
+        UpdateCamera(&camera, CAMERA_CUSTOM);
+
+
 		// drawing
 		BeginDrawing();
 
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(BLACK);
 
-        drawGrid(width, height);
+        BeginMode3D(camera);
+        DrawGrid(width/graphSpacing - 1, graphSpacing);
+        EndMode3D();
+
+        // // Draw grid for graph
+        // drawGrid(width, height);
 
         // Display fps
         std::string fpsText = std::to_string(GetFPS());
