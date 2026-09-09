@@ -95,21 +95,19 @@ Camera centerCam() {
 
 // Draw grid
 void drawGrid(int width, int height) {
+    int halfWidth = width/2;
+    int halfHeight = height/2;
     int space = 100;
+    int buffer = space;
 
     // Draw vertical lines
-    for (int x = 0; x < width; x += space) {
-        DrawLine(x, -height, x, height, LIGHTGRAY);
+    for (int x = -halfWidth; x < halfWidth; x += space) {
+        DrawLine(x, -halfHeight + buffer, x, halfHeight - buffer, LIGHTGRAY);
     }
-    for (int x = 0; x < -width; x -= space) {
-        DrawLine(x, -height, x, height, LIGHTGRAY);
-    }
+
     // Draw horizontal lines
-    for (int y = 0; y < height; y += space) {
-        DrawLine(-width, y, width, y, LIGHTGRAY);
-    }
-    for (int y = 0; y < -height; y -= space) {
-        DrawLine(-width, y, width, y, LIGHTGRAY);
+    for (int y = -halfHeight; y < halfHeight; y += space) {
+        DrawLine(-halfWidth + buffer, y, halfWidth - buffer, y, LIGHTGRAY);
     }
 }
 
@@ -137,10 +135,9 @@ void rayInit() {
 		// Setup the back buffer for drawing (clear color and depth buffers)
 		ClearBackground(BLACK);
 
+        BeginMode3D(camera);
         // Draw grid
         drawGrid(width, height);
-
-        BeginMode3D(camera);
         EndMode3D();
 
         // Display fps
