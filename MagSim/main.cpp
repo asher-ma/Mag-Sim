@@ -6,6 +6,7 @@
 #include "Geometry.h"
 #include "Electromagnetism.h"
 #include "raylib.h"
+#include "Renderer.h"
 
 void displayVectorProperties(Vector3D r) {
     std::cout << "r: " << r << "\nmag: " << r.mag() << "\nunit: " << r.unit() << std::endl;
@@ -93,23 +94,7 @@ Camera centerCam() {
     return Camera{position, target, up, fovy, projection};
 }
 
-// Draw grid
-void drawGrid(int width, int height) {
-    int halfWidth = width/2;
-    int halfHeight = height/2;
-    int space = 100;
-    int buffer = space;
 
-    // Draw vertical lines
-    for (int x = -halfWidth; x < halfWidth; x += space) {
-        DrawLine(x, -halfHeight + buffer, x, halfHeight - buffer, LIGHTGRAY);
-    }
-
-    // Draw horizontal lines
-    for (int y = -halfHeight; y < halfHeight; y += space) {
-        DrawLine(-halfWidth + buffer, y, halfWidth - buffer, y, LIGHTGRAY);
-    }
-}
 
 void rayInit() {
     // Tell the window to use vsync and work on high DPI displays
@@ -122,6 +107,8 @@ void rayInit() {
     InitWindow(width, height, "MagSim");
 
     Camera camera = centerCam();
+
+    Renderer Renderer;
 
     // game loop
 	while (!WindowShouldClose())		// run the loop until the user presses ESCAPE or presses the Close button on the window
@@ -137,23 +124,10 @@ void rayInit() {
 
         BeginMode3D(camera);
         // Draw grid
-        drawGrid(width, height);
+        Renderer.drawGrid(width, height);
         EndMode3D();
 
-        // Display fps
-        std::string fpsText = std::to_string(GetFPS());
-        DrawText(fpsText.c_str(), 10,10,10,WHITE);
 
-        // Display elapsed time
-        std::string timeText = std::to_string(static_cast<int>(GetTime()));
-        DrawText(timeText.c_str(), 10,25,10,WHITE);
-
-        // Get ray from mouse pos on screen to world
-        // Ray {Vector3 position, Vector3 direction}
-        Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
-        std::string mouseText = "Mouse at: (" + std::to_string(static_cast<int>(ray.position.x)) + "," +
-                std::to_string(static_cast<int>(ray.position.y)) + ")";
-        DrawText(mouseText.c_str(), 10,40,10,WHITE);
 		
 		// end the frame and get ready for the next one  (display frame, poll input, etc...)
 		EndDrawing();
