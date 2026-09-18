@@ -7,7 +7,7 @@ class HudRenderer {
     public:
         void drawFPS();
         void drawElapsedTime();
-        void drawMousePos(int width, int height);
+        void drawMousePos(Vector3 r);
 };
 
 #include "..\src\HudRenderer.cpp"
